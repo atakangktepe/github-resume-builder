@@ -5,7 +5,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Barbar React Starter!</h1>
+        <h1>Github Resume Builder!</h1>
         <div>
           {this.props.children}
         </div>
