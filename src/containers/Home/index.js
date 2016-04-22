@@ -5,8 +5,7 @@ import { fetchProfile } from '../../redux/modules/user';
 
 @connect(
   state => ({
-    user: state.user,
-    userLoaded: state.message
+    user: state.user
   }),
   dispatch => bindActionCreators({ fetchProfile }, dispatch))
 export default class Home extends Component {
@@ -18,26 +17,55 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.fetchProfile = this.fetchProfile.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
 
     this.state = {
-      userLoaded: false
+      userLoaded: this.props.user.message === 'Success',
+      term: ''
     };
   }
 
-  fetchProfile() {
-    this.props.fetchProfile('atakangktepe');
+  componentWillReceiveProps() {
+    console.log(this.props.user);
+    this.setState({
+      userLoaded: this.props.user.message === 'Success'
+    });
+  }
+
+  onInputChange(e) {
+    this.setState({
+      term: e.target.value
+    });
+  }
+
+  onFormSubmit(e) {
+    e.preventDefault();
+
+    this.props.fetchProfile(this.state.term);
+    this.setState({
+      term: ''
+    });
   }
 
   render() {
     return (
       <div>
-        Home
-        <button onClick={this.fetchProfile}>
-          asdk
-        </button>
-
-        {this.props.user.profileData ? this.props.user.profileData.data.login : 'aksdj'}
+        <h1>Enter your Github username and click on generate </h1>
+        <form onSubmit={this.onFormSubmit}>
+          <input
+            type="text"
+            value={this.state.term}
+            onChange={this.onInputChange}
+          />
+          <button>
+            Generate
+          </button>
+        </form>
+        Name: { this.props.user.profileData ? this.props.user.profileData.data.name : '' }
+        <br />
+        Username: { this.props.user.profileData ? this.props.user.profileData.data.login : '' }
+        <br />
       </div>
     );
   }

@@ -5,7 +5,7 @@ const FETCH_SUCCESS = 'FETCH_SUCCESS';
 const FETCH_FAIL = 'FETCH_FAIL';
 const initialState = {
   isFetching: false,
-  error: false,
+  error: false
 };
 
 export default function user(state = initialState, action) {
@@ -19,6 +19,7 @@ export default function user(state = initialState, action) {
       return {
         username: action.payload.username,
         profileData: action.payload.profileData,
+        message: 'Success',
         ...state
       };
     case FETCH_FAIL:
@@ -54,11 +55,11 @@ export function fetchProfile(username) {
     return {
       type: FETCH_SUCCESS,
       payload: {
+        message: 'Success',
         username,
         profileData,
         isFetching: false,
         error: false,
-        message: 'Success'
       }
     };
   }
