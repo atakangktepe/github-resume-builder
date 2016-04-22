@@ -1,4 +1,5 @@
 { "extends": "eslint-config-airbnb",
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true,
@@ -6,12 +7,13 @@
   },
   "rules": {
     "react/no-multi-comp": 0,
+    "react/prefer-stateless-function": 0,
     "import/default": 0,
     "import/no-duplicates": 0,
     "import/named": 0,
     "import/namespace": 0,
     "import/no-unresolved": 0,
-    "import/no-named-as-default": 2,
+    "import/no-named-as-default": 1,
     "jsx-a11y/rule-name": 0,
     "jsx-a11y/img-uses-alt": 0,
     "jsx-a11y/redundant-alt": 0,
