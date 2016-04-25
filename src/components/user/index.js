@@ -7,9 +7,9 @@ function Home(props) {
       <div>
         <h2>Github Profile</h2>
         <p>
-          On GitHub since { props.since }, { props.name } is a developer based in
-          { props.location } with { props.repoCount } public repositories and
-          { props.followersCount } followers.
+          On GitHub since { props.since }, { props.name } is a developer
+          based in { props.location } with { props.repoCount } public repositories
+          and { props.followersCount } followers.
         </p>
       </div>
       <div>

@@ -21,6 +21,7 @@ export default class Home extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.getDate = this.getDate.bind(this);
 
     this.state = {
       userLoaded: this.props.user.message === 'Success',
@@ -50,6 +51,25 @@ export default class Home extends Component {
     });
   }
 
+  getDate(date) {
+    const sinceDate = new Date(date);
+    const currentYear = (new Date).getFullYear();
+    let since = sinceDate.getFullYear();
+
+    switch (since) {
+      case currentYear - 1:
+        since = 'last year';
+        break;
+      case currentYear:
+        since = 'this year';
+        break;
+      default:
+        since = sinceDate.getFullYear();
+    }
+
+    return since;
+  }
+
   render() {
     return (
       <div>
@@ -68,7 +88,7 @@ export default class Home extends Component {
           return (
             <User
               website={this.props.user.profileData.data.blog}
-              since={this.props.user.profileData.data.created_at}
+              since={this.getDate(this.props.user.profileData.data.created_at)}
               name={this.props.user.profileData.data.name}
               location={this.props.user.profileData.data.location}
               repoCount={this.props.user.profileData.data.public_repos}
