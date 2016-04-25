@@ -6,14 +6,16 @@ import User from '../../components/user/';
 
 @connect(
   state => ({
-    user: state.user
+    user: state.user,
+    repos: state.repos.data
   }),
   dispatch => bindActionCreators({ fetchProfile, resetProfile }, dispatch))
 export default class Home extends Component {
   static propTypes = {
     fetchProfile: PropTypes.func,
     user: PropTypes.object,
-    resetProfile: PropTypes.func
+    resetProfile: PropTypes.func,
+    repos: PropTypes.object
   }
 
   constructor(props) {
@@ -93,6 +95,7 @@ export default class Home extends Component {
               location={this.props.user.profileData.data.location}
               repoCount={this.props.user.profileData.data.public_repos}
               followersCount={this.props.user.profileData.data.followers}
+              repos={this.props.repos.data.items}
             />
           );
         })()}

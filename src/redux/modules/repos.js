@@ -1,36 +1,35 @@
 import axios from 'axios';
-import { fetchRepos } from './repos';
 
-const USER_FETCH_START = 'USER_FETCH_START';
-const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
-const RESET_USER = 'RESET_USER';
-const USER_FETCH_FAIL = 'USER_FETCH_FAIL';
+const REPO_FETCH_START = 'REPO_FETCH_START';
+const REPO_FETCH_SUCCESS = 'REPO_FETCH_SUCCESS';
+const RESET_REPO = 'RESET_REPO';
+const REPO_FETCH_FAIL = 'REPO_FETCH_FAIL';
 const initialState = {
   isFetching: false,
   error: false
 };
 
-export default function user(state = initialState, action) {
+export default function repos(state = initialState, action) {
   switch (action.type) {
-    case USER_FETCH_START:
+    case REPO_FETCH_START:
       return {
         username: action.payload.username,
         ...state
       };
-    case USER_FETCH_SUCCESS:
+    case REPO_FETCH_SUCCESS:
       return {
         username: action.payload.username,
-        profileData: action.payload.profileData,
+        data: action.payload.repoData,
         message: 'Success',
         ...state
       };
-    case USER_FETCH_FAIL:
+    case REPO_FETCH_FAIL:
       return {
         username: action.payload.username,
         message: action.payload.message,
         ...state
       };
-    case RESET_USER:
+    case RESET_REPO:
       return {
         state: initialState
       };
@@ -41,19 +40,19 @@ export default function user(state = initialState, action) {
 
 const API_URL = 'http://api.github.com/';
 
-export function resetProfile() {
+export function resetRepo() {
   return {
-    type: RESET_USER
+    type: RESET_REPO
   };
 }
 
-export function fetchProfile(username) {
-  const url = `${API_URL}users/${username}`;
+export function fetchRepos(username) {
+  const url = `${API_URL}search/repositories?q=user:${username}&sort=stars&order=desc`;
   const request = axios.get(url);
 
   function fetchStart() {
     return {
-      type: USER_FETCH_START,
+      type: REPO_FETCH_START,
       payload: {
         username,
         isFetching: true,
@@ -63,13 +62,13 @@ export function fetchProfile(username) {
     };
   }
 
-  function fetchSuccess(profileData) {
+  function fetchSuccess(repoData) {
     return {
-      type: USER_FETCH_SUCCESS,
+      type: REPO_FETCH_SUCCESS,
       payload: {
         message: 'Success',
         username,
-        profileData,
+        repoData,
         isFetching: false,
         error: false,
       }
@@ -78,7 +77,7 @@ export function fetchProfile(username) {
 
   function fetchFail(errorMessage) {
     return {
-      type: USER_FETCH_FAIL,
+      type: REPO_FETCH_FAIL,
       payload: {
         username,
         isFetching: false,
@@ -91,10 +90,7 @@ export function fetchProfile(username) {
   return dispatch => {
     dispatch(fetchStart());
     request
-      .then((res) => {
-        dispatch(fetchRepos(username));
-        return dispatch(fetchSuccess(res));
-      })
+      .then((res) => dispatch(fetchSuccess(res)))
       .catch((err) => dispatch(fetchFail(err)));
   };
 }

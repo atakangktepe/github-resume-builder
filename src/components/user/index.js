@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Website from './website';
+import PopularRepos from './popular_repos';
 
 function Home(props) {
   return (
@@ -16,6 +17,10 @@ function Home(props) {
         <h2>Website</h2>
         <Website website={ props.website } />
       </div>
+      <div>
+        <h2>Popular Repositories</h2>
+        <PopularRepos repos={ props.repos } />
+      </div>
     </div>
   );
 }
@@ -26,7 +31,8 @@ Home.propTypes = {
   website: PropTypes.string,
   location: PropTypes.string,
   repoCount: PropTypes.number,
-  followersCount: PropTypes.number
+  followersCount: PropTypes.number,
+  repos: PropTypes.array
 };
 
 export default Home;
