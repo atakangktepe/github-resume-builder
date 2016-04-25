@@ -1,17 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchProfile } from '../../redux/modules/user';
+import { fetchProfile, resetProfile } from '../../redux/modules/user';
 
 @connect(
   state => ({
     user: state.user
   }),
-  dispatch => bindActionCreators({ fetchProfile }, dispatch))
+  dispatch => bindActionCreators({ fetchProfile, resetProfile }, dispatch))
 export default class Home extends Component {
   static propTypes = {
     fetchProfile: PropTypes.func,
-    user: PropTypes.object
+    user: PropTypes.object,
+    resetProfile: PropTypes.func
   }
 
   constructor(props) {
@@ -42,6 +43,7 @@ export default class Home extends Component {
   onFormSubmit(e) {
     e.preventDefault();
 
+    this.props.resetProfile();
     this.props.fetchProfile(this.state.term);
     this.setState({
       term: ''
