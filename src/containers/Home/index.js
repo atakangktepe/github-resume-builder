@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchProfile, resetProfile } from '../../redux/modules/user';
+import User from '../../components/user/';
 
 @connect(
   state => ({
@@ -28,7 +29,6 @@ export default class Home extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log(this.props.user);
     this.setState({
       userLoaded: this.props.user.message === 'Success'
     });
@@ -64,9 +64,18 @@ export default class Home extends Component {
             Generate
           </button>
         </form>
-        Name: { this.props.user.profileData ? this.props.user.profileData.data.name : '' }
-        <br />
-        Username: { this.props.user.profileData ? this.props.user.profileData.data.login : '' }
+        {this.props.user.profileData && (() => {
+          return (
+            <User
+              website={this.props.user.profileData.data.blog}
+              since={this.props.user.profileData.data.created_at}
+              name={this.props.user.profileData.data.name}
+              location={this.props.user.profileData.data.location}
+              repoCount={this.props.user.profileData.data.public_repos}
+              followersCount={this.props.user.profileData.data.followers}
+            />
+          );
+        })()}
         <br />
       </div>
     );
