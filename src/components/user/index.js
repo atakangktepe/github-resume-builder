@@ -26,7 +26,7 @@ function Home(props) {
 }
 
 Home.propTypes = {
-  since: PropTypes.number,
+  since: PropTypes.any,
   name: PropTypes.string,
   website: PropTypes.string,
   location: PropTypes.string,
