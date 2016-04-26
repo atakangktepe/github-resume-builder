@@ -3,17 +3,15 @@
   "description": "Tool to build your online resume using the Github information.",
   "author": "Atakan Goktepe",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/barbar/react-github-resume"
+    "url": "https://github.com/atakangktepe/github-resume-builder"
   },
-  "homepage": "https://github.com/barbar/react-github-resume",
+  "homepage": "https://github.com/atakangktepe/github-resume-builder",
   "keywords": [
     "react",
-    "redux",
-    "universal",
-    "starter"
+    "redux"
   ],
   "main": "bin/server.js",
   "scripts": {
