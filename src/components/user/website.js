@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 function Website(props) {
   return (
     <div>
-      <a href="{ props.website }" title="{ props.website }'s website">{ props.website }</a>
+      <a href={props.website}>{ props.website }</a>
     </div>
   );
 }

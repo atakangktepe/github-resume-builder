@@ -12,9 +12,9 @@ function PopularRepos(props) {
             </a>
             <br />
             <i>{repo.language}</i>
-            <br /><br />
-            <span dangerouslySetInnerHTML={{ __html: repo.description }}></span>
             <br />
+            <span dangerouslySetInnerHTML={{ __html: repo.description }}></span>
+            <br /><br />
             This repository has {repo.stargazers_count} stars and {repo.forks} forks.
             If you would like more information about this repository and my contributed code,
             please visit <a href={repo.url}>the repo</a> on GitHub.
