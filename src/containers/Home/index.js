@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchProfile, resetProfile } from '../../redux/modules/user';
+import { resetRepo } from '../../redux/modules/repos';
 import User from '../../components/user/';
 
 @connect(
@@ -9,12 +10,13 @@ import User from '../../components/user/';
     user: state.user,
     repos: state.repos.data
   }),
-  dispatch => bindActionCreators({ fetchProfile, resetProfile }, dispatch))
+  dispatch => bindActionCreators({ fetchProfile, resetProfile, resetRepo }, dispatch))
 export default class Home extends Component {
   static propTypes = {
     fetchProfile: PropTypes.func,
     user: PropTypes.object,
     resetProfile: PropTypes.func,
+    resetRepo: PropTypes.func,
     repos: PropTypes.object
   }
 
@@ -47,6 +49,7 @@ export default class Home extends Component {
     e.preventDefault();
 
     this.props.resetProfile();
+    this.props.resetRepo();
     this.props.fetchProfile(this.state.term);
     this.setState({
       term: ''
